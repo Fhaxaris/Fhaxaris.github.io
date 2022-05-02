@@ -55,14 +55,19 @@ httpGetAsync('https://e621.net/tags.json?commit=Search&search[category]=5&search
 			json.push(currentValue);
 		}
 	});
+	let b = 25
 	json.sort(function(a, b){return b.post_count - a.post_count})
-	for (let i = 0; i < 25; i++) {
+	for (let i = 0; i < b; i++) {
 		if (!(json[i].name == "fan_character" || json[i].name == "webcomic_character")) {
 			if(highestPosts < json[i].post_count) {
 				highestPosts = json[i].post_count;
 			}
 			newContent += "<h2>" + json[i].name + "</h2>";
 			newContent += '<div class="progress"><div class="progress-bar" style="width:' + json[i].post_count/highestPosts*100 + '%">' + json[i].post_count + " posts" + '</div></div>';
+		}
+		else
+		{
+			b++;
 		}
 };
 	document.getElementById("mainContainer").innerHTML += newContent;
